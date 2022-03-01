@@ -21,6 +21,7 @@ RUN sudo chown -R coder:coder /home/coder/.local
 
 USER coder
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN chmod +x $HOME/.nvm/nvm.sh 
 RUN $HOME/.nvm/nvm.sh install 16.14.0
 
 

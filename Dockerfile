@@ -19,12 +19,17 @@ COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 # Fix permissions for code-server
 RUN sudo chown -R coder:coder /home/coder/.local
 
-# You can add custom software and dependencies for your environment below
-# -----------
+USER root
+RUN apt install npm
+
+USER coder
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN nvm install 16.14.0
+
 
 # Install a VS Code extension:
 # Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
-# RUN code-server --install-extension esbenp.prettier-vscode
+RUN code-server --install-extension Luxcium.pop-n-lock-theme-vscode
 
 # Install apt packages:
 # RUN sudo apt-get install -y ubuntu-make

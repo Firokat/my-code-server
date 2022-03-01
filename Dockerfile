@@ -9,7 +9,6 @@ COPY deploy-container/settings.json .local/share/code-server/User/settings.json
 # Use bash shell
 ENV SHELL=/bin/bash
 
-# Install unzip + rclone (support for remote filesystem)
 RUN sudo apt-get update && sudo apt-get install unzip npm -y
 #RUN curl https://rclone.org/install.sh | sudo bash
 
@@ -19,12 +18,9 @@ RUN sudo apt-get update && sudo apt-get install unzip npm -y
 # Fix permissions for code-server
 RUN sudo chown -R coder:coder /home/coder/.local
 
-USER coder
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-RUN chmod +x $HOME/.nvm/nvm.sh 
-RUN $HOME/.nvm/nvm.sh install 16.14.0
-
-
+USER root
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - 
+RUN apt-get install -y nodejs
 # Install a VS Code extension:
 # Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
 RUN code-server --install-extension Luxcium.pop-n-lock-theme-vscode

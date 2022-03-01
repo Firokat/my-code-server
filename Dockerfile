@@ -21,7 +21,7 @@ RUN sudo chown -R coder:coder /home/coder/.local
 
 USER coder
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-RUN nvm install 16.14.0
+RUN $HOME/.nvm/nvm.sh install 16.14.0
 
 
 # Install a VS Code extension:

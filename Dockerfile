@@ -10,17 +10,14 @@ COPY deploy-container/settings.json .local/share/code-server/User/settings.json
 ENV SHELL=/bin/bash
 
 # Install unzip + rclone (support for remote filesystem)
-RUN sudo apt-get update && sudo apt-get install unzip -y
-RUN curl https://rclone.org/install.sh | sudo bash
+RUN sudo apt-get update && sudo apt-get install unzip npm -y
+#RUN curl https://rclone.org/install.sh | sudo bash
 
 # Copy rclone tasks to /tmp, to potentially be used
-COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
+#COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 
 # Fix permissions for code-server
 RUN sudo chown -R coder:coder /home/coder/.local
-
-USER root
-RUN apt install npm
 
 USER coder
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
